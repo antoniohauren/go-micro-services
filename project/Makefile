@@ -35,3 +35,6 @@ start: build_front
 stop:
 	@-pkill -SIGTERM -f "./${FRONT_END_BINARY}"
 	@echo "Done!"
+
+clean:
+	rm ../front-end/${FRONT_END_BINARY}
