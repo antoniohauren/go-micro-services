@@ -2,6 +2,7 @@ FRONT_END_BINARY=frontApp
 BROKER_BINARY=brokerApp
 AUTH_BINARY=authApp
 LOGGER_BINARY=loggerApp
+MAILER_BINARY=mailerApp
 
 up:
 	docker compose up -d
@@ -11,7 +12,7 @@ down:
 	docker compose down
 	@echo "Done!"
 
-up_build: build_broker build_auth build_logger
+up_build: build_broker build_auth build_logger build_mailer
 	@echo "Stopping docker images (if running...)"
 	docker compose down
 	@echo "Building (when required) and starting docker images..."
@@ -30,6 +31,10 @@ build_logger:
 	cd ../logger-service && env GOOS=linux CGO_ENABLED=0 go build -o ${LOGGER_BINARY} ./cmd/api
 	@echo "Done!"
 
+build_mailer:
+	cd ../mail-service && env GOOS=linux CGO_ENABLED=0 go build -o ${MAILER_BINARY} ./cmd/api
+	@echo "Done!"
+
 build_front:
 	cd ../front-end && env CGO_ENABLED=0 go build -o ${FRONT_END_BINARY} ./cmd/web
 	@echo "Done!"
@@ -46,4 +51,5 @@ clean:
 	rm ../broker-service/${brokerApp}
 	rm ../auth-service/${authApp}
 	rm ../logger-service/${loggerApp}
+	rm ../mail-service/${mailerApp}
 	rm ../front-end/${FRONT_END_BINARY}

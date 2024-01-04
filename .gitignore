@@ -2,4 +2,5 @@
 **/brokerApp
 **/authApp
 **/loggerApp
+**/mailerApp
 **/db-data/**/*
