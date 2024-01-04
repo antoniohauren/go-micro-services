@@ -20,7 +20,7 @@ func (app *Config) readJSON(w http.ResponseWriter, r *http.Request, data any) er
 	dec := json.NewDecoder(r.Body)
 	err := dec.Decode(data)
 
-	if err == nil {
+	if err != nil {
 		return err
 	}
 
@@ -64,10 +64,10 @@ func (app *Config) errorJSON(w http.ResponseWriter, err error, status ...int) er
 		statusCode = status[0]
 	}
 
-	var payload jsonResponse
-
-	payload.Error = true
-	payload.Message = err.Error()
+	payload := jsonResponse{
+		Error:   true,
+		Message: err.Error(),
+	}
 
 	return app.writeJSON(w, statusCode, payload)
 }

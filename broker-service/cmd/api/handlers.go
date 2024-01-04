@@ -27,18 +27,18 @@ func (app *Config) Broker(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
-	var RequestPayload RequestPayload
+	var requestPayload RequestPayload
 
-	err := app.readJSON(w, r, &RequestPayload)
+	err := app.readJSON(w, r, &requestPayload)
 
 	if err != nil {
 		app.errorJSON(w, err)
 		return
 	}
 
-	switch RequestPayload.Action {
+	switch requestPayload.Action {
 	case "auth":
-		app.authenticate(w, RequestPayload.Auth)
+		app.authenticate(w, requestPayload.Auth)
 	default:
 		app.errorJSON(w, errors.New("unknown action"))
 	}
@@ -85,12 +85,6 @@ func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 		app.errorJSON(w, err, http.StatusUnauthorized)
 		return
 	}
-
-	// var payload jsonResponse
-	// payload.Error = false
-	// payload.Message = "Authenticated!"
-	// payload.Data = jsonFromService.Data
-	// app.writeJSON(w, http.StatusAccepted, payload)
 
 	payload := jsonResponse{
 		Error:   false,
