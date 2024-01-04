@@ -1,3 +1,5 @@
 **/frontApp
 **/brokerApp
 **/authApp
+**/loggerApp
+**/db-data/**/*
