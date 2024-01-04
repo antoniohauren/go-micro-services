@@ -14,7 +14,7 @@ import (
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
-const PORT = "80"
+const webPort = "80"
 
 var DB_COUNTS int64
 
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%s", PORT),
+		Addr:    fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
 	}
 
