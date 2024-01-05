@@ -53,7 +53,10 @@ func main() {
 
 	go app.rpcListen()
 
+	go app.gRPCListen()
+
 	log.Println("Starting log service on port", webPort)
+
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
